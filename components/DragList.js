@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var colors = ["Red","Green","Blue","Yellow","Black","White","Orange"];
-var placeholder = document.createElement("div");
+var placeholder = document.createElement("li");
 placeholder.className = "placeholder";
 
 var List = React.createClass({
@@ -17,7 +17,8 @@ var List = React.createClass({
   },
   dragEnd: function(e) {
     this.dragged.style.display = "block";
-    this.dragged.parentNode.removeChild(placeholder);
+    console.log(this.dragged.parentNode);
+    // this.dragged.parentNode.removeChild(placeholder);
     // Update data
     var data = this.state.data;
     var from = Number(this.dragged.dataset.id);
@@ -33,33 +34,34 @@ var List = React.createClass({
     if(e.target.className == "placeholder") return;
     this.over = e.target;
     // Inside the dragOver method
-    var relY = e.clientY - this.over.offsetTop;
-    var height = this.over.offsetHeight / 2;
-    var parent = e.target.parentNode;
-    if(relY > height) {
-      this.nodePlacement = "after";
-      parent.insertBefore(placeholder, e.target.nextElementSibling);
-    }
-    else if(relY < height) {
-      this.nodePlacement = "before"
-      parent.insertBefore(placeholder, e.target);
-    }
+    // var relY = e.clientY - this.over.offsetTop;
+    // var height = this.over.offsetHeight / 2;
+    // var parent = e.target.parentNode;
+    // if(relY > height) {
+    //   this.nodePlacement = "after";
+    //   parent.insertBefore(placeholder, e.target.nextElementSibling);
+    // }
+    // else if(relY < height) {
+    //   this.nodePlacement = "before"
+    //   parent.insertBefore(placeholder, e.target);
+    // }
   },
   render: function() {
     return <ul onDragOver={this.dragOver}>
     	{this.state.data.map(function(item, i) {
       	return (
-            	<div className = "pointer item"
-    		          data-id={i}
-                      draggable="true"
-                      onDragEnd={this.dragEnd}
-                      onDragStart={this.dragStart}
+            	<li
+                    key={i}
+    		        data-id={i}
+                    draggable="true"
+                    onDragEnd={this.dragEnd}
+                    onDragStart={this.dragStart}
                 >
                     <div draggable="false">
                         {item}
                     </div>
 
-              </div>
+              </li>
         )
    	 	}, this)}
     </ul>

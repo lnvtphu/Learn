@@ -1,4 +1,4 @@
-/*.block{
+.block{
     border-style: solid !important;
     border-color: red !important;
 }
@@ -8,8 +8,8 @@
 .pointer{
     cursor: pointer;
 }
-.item.placeholder { background: rgb(255,240,120);}
-.item.placeholder:before {
+li.placeholder { background: rgb(255,240,120);}
+li.placeholder:before {
   content: "Drop here"; color: rgb(225,210,90);
 }
 ul {
@@ -17,7 +17,7 @@ ul {
   margin:0;
   padding:0
 }
-.item {
+li {
   padding: 5px;
   background:#eee
 }
