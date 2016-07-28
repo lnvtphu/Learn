@@ -18,7 +18,7 @@ var List = React.createClass({
   dragEnd: function(e) {
     this.dragged.style.display = "block";
     console.log(this.dragged.parentNode);
-    // this.dragged.parentNode.removeChild(placeholder);
+    this.dragged.parentNode.removeChild(placeholder);
     // Update data
     var data = this.state.data;
     var from = Number(this.dragged.dataset.id);
@@ -31,20 +31,24 @@ var List = React.createClass({
   dragOver: function(e) {
     e.preventDefault();
     this.dragged.style.display = "none";
-    if(e.target.className == "placeholder") return;
-    this.over = e.target;
+    // if(e.target.className == "placeholder") return;
     // Inside the dragOver method
-    // var relY = e.clientY - this.over.offsetTop;
-    // var height = this.over.offsetHeight / 2;
-    // var parent = e.target.parentNode;
-    // if(relY > height) {
-    //   this.nodePlacement = "after";
-    //   parent.insertBefore(placeholder, e.target.nextElementSibling);
-    // }
-    // else if(relY < height) {
-    //   this.nodePlacement = "before"
-    //   parent.insertBefore(placeholder, e.target);
-    // }
+    console.log(e.target.dragged);
+    if(e.target.draggable){
+        this.over = e.target;
+        var relY = e.clientY - this.over.offsetTop;
+        var height = this.over.offsetHeight / 2;
+        var parent = e.target.parentNode;
+        if(relY > height) {
+          this.nodePlacement = "after";
+          parent.insertBefore(placeholder, e.target.nextElementSibling);
+        }
+        else if(relY < height) {
+          this.nodePlacement = "before"
+          parent.insertBefore(placeholder, e.target);
+        }
+    }
+
   },
   render: function() {
     return <ul onDragOver={this.dragOver}>
